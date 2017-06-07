@@ -4,14 +4,14 @@ pipeline {
     stages {
         stage('Build & Unit Test') {
             steps {
-                sh "../gradlew clean build"
+                sh "./gradlew clean build"
                 archiveUnitTestResults()
             }
         }
 /*
         stage('Deploy') {
             steps {
-                sh '../gradlew publish'
+                sh './gradlew publish'
             }
         }
 */
