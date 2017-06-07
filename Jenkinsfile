@@ -19,5 +19,5 @@ pipeline {
 }
 
 def archiveUnitTestResults() {
-    step([$class: "JUnitResultArchiver", testResults: "build/**/TEST-*.xml"])
+    step([$class: "JUnitResultArchiver", testResults: "build/test-results/TEST-*.xml"])
 }
