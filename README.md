@@ -2,9 +2,9 @@
 
 This project is derived from the `rulez` project published by Adam Bien at [github](https://github.com/AdamBien/rulz)
 
-##JPA EntityManager provider
+## JPA EntityManager provider
 
-###Installation
+### Installation
 
 ```xml
     <dependency>
@@ -14,7 +14,7 @@ This project is derived from the `rulez` project published by Adam Bien at [gith
         <scope>test</scope>
     </dependency>
 ```
-###Sample use
+### Sample use
 
 ```java
 import de.roamingthings.junit.rules.jpa.*;
