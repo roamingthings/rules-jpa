@@ -1,15 +1,18 @@
 plugins {
     id "com.github.hierynomus.license" version "0.14.0"
+    id 'io.codearte.nexus-staging' version '0.9.0'
 }
 
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'eclipse'
 apply plugin: 'maven'
+apply plugin: 'signing'
 
 group = 'de.roamingthings.junit-rules'
-
+archivesBaseName = "rules-jpa"
 version = '1.0.0-SNAPSHOT'
+
 sourceCompatibility = 1.8
 
 repositories {
@@ -32,6 +35,7 @@ sourceSets {
 }
 
 license {
+    header file('doc/APL.txt')
     include "**/*.java"
     exclude "**/*Test*.java"
 }
@@ -51,3 +55,52 @@ artifacts {
     archives sourcesJar
     archives javadocJar
 }
+
+signing {
+    sign configurations.archives
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'JPA JUnit Rules'
+                packaging 'jar'
+                description 'JUnit Rules for supporting the usage of JPA in unit tests to help writing simpler tests.'
+                url 'http://https://github.com/roamingthings/rules-jpa'
+
+                scm {
+                    connection 'scm:git:git@github.com:roamingthings/rules-jpa.git'
+                    developerConnection 'scm:git:git@github.com:roamingthings/rules-jpa.git'
+                    url 'scm:git:git@github.com:roamingthings/rules-jpa.git'
+                }
+
+                licenses {
+                    license {
+                        name 'The Apache License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'roamingthings'
+                        name 'Alexander Sparkowsky'
+                        email 'info@roamingthings.de'
+                    }
+                }
+            }
+        }
+    }
+}
+uploadArchives.dependsOn licenseMain
