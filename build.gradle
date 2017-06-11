@@ -17,6 +17,8 @@ sourceCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    mavenLocal()
+    maven { url "http://oss.sonatype.org/content/repositories/snapshots/" }
 }
 
 dependencies {
@@ -38,6 +40,7 @@ license {
     header file('doc/APL.txt')
     include "**/*.java"
     exclude "**/*Test*.java"
+    exclude "**/*IT.java"
 }
 licenseMain.dependsOn licenseFormat
 
@@ -77,7 +80,7 @@ uploadArchives {
                 name 'JPA JUnit Rules'
                 packaging 'jar'
                 description 'JUnit Rules for supporting the usage of JPA in unit tests to help writing simpler tests.'
-                url 'http://https://github.com/roamingthings/rules-jpa'
+                url 'https://github.com/roamingthings/rules-jpa'
 
                 scm {
                     connection 'scm:git:git@github.com:roamingthings/rules-jpa.git'

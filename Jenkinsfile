@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Build & Unit Test') {
             steps {
-                sh "./gradlew clean build"
+                sh "./gradlew -Dgradle.user.home=$HOME/.gradle clean build"
                 archiveUnitTestResults()
             }
         }
@@ -19,5 +19,5 @@ pipeline {
 }
 
 def archiveUnitTestResults() {
-    step([$class: "JUnitResultArchiver", testResults: "build/test-results/TEST-*.xml"])
+    step([$class: "JUnitResultArchiver", testResults: "build/test-results/test/TEST-*.xml"])
 }
